@@ -81,12 +81,6 @@
                                             @enderror
                                         </div>
                                     </div>
-									<div class='mb-3 row'>
-                                        <label class='col-sm-3 col-form-label'>Url</label>
-                                        <div class='col-2'>
-                                            <img src='{{$model->url}}' width='100' alt=''>
-                                        </div>
-                                    </div>
                                     <div class='mb-3 row'>
                                         <div class='col-3'></div>
                                         <div class='col-sm-7'>
@@ -96,20 +90,17 @@
                                                 @enderror
                                         </div>
                                     </div>
-									<div class='mb-3 row'>
-                                        <label class='col-sm-3 col-form-label'>Image</label>
-                                        <div class='col-sm-9'>
-                                            <input class='form-control'  type='text' name='image' value='{{$model->image}}' placeholder='Image'>
-                                            @error('image')
-                                            <p class='text-danger'>{{$message}}</p>
-                                            @enderror
+                                    <div class='mb-3 row'>
+                                        <label class='col-sm-3 col-form-label'>Object</label>
+                                        <div class='col-2'>
+                                            <img src='{{$model->image}}' width='100' alt=''>
                                         </div>
                                     </div>
-									<div class='mb-3 row'>
-                                        <label class='col-sm-3 col-form-label'>User Id</label>
+                                    <div class='mb-3 row'>
+                                        <label class='col-sm-3 col-form-label'>Image</label>
                                         <div class='col-sm-9'>
-                                            <input class='form-control'  type='text' name='user_id' value='{{$model->user_id}}' placeholder='User Id'>
-                                            @error('user_id')
+                                            <input class='form-control' name='image' type='file'>
+                                            @error('image')
                                             <p class='text-danger'>{{$message}}</p>
                                             @enderror
                                         </div>

@@ -12,7 +12,8 @@ class SubjectController extends Controller
      */
     public function index()
     {
-        $models = Subject::orderByDesc('id')->get();
+        $lang = app()->getLocale();
+        $models = Subject::select('id', "title_$lang as title")->orderByDesc('id')->get();
 
         return view('subject.subject', ['models' => $models]);
     }

@@ -1,5 +1,5 @@
 @extends('layouts.simple.master')
-@section('title', 'Programmer UZ')
+@section('title', 'Afshon')
 
 
 @section('style')
@@ -35,16 +35,10 @@
                             <thead>
                             <tr>
                                 <th scope="col">#</th>
-								<th scope='col'>Name Uz</th>
-								<th scope='col'>Name Ru</th>
-								<th scope='col'>Name En</th>
-								<th scope='col'>Excerpt Uz</th>
-								<th scope='col'>Excerpt Ru</th>
-								<th scope='col'>Excerpt En</th>
+								<th scope='col'>Name</th>
+								<th scope='col'>Excerpt</th>
 								<th scope='col'>Keywords</th>
-								<th scope='col'>Url</th>
 								<th scope='col'>Image</th>
-								<th scope='col'>User Id</th>
 								<th scope="col">Action</th>
                             </tr>
                             </thead>
@@ -52,16 +46,10 @@
                             @foreach($models as $model)
                             <tr>
                                 <td>{{$model->id}}</td>
-								<td>{{$model->name_uz}}</td>
-								<td>{{$model->name_ru}}</td>
-								<td>{{$model->name_en}}</td>
-								<td>{{$model->excerpt_uz}}</td>
-								<td>{{$model->excerpt_ru}}</td>
-								<td>{{$model->excerpt_en}}</td>
+								<td>{{$model->name}}</td>
+								<td>{{$model->excerpt}}</td>
 								<td>{{$model->keywords}}</td>
-								<td><img src='{{$model->url}}' width='100' alt=''></td>
-								<td>{{$model->image}}</td>
-								<td>{{$model->user_id}}</td>
+								<td><img src='{{$model->image}}' width='100' alt=''></td>
                                 <td>
                                     <div class="btn-group">
                                         <a href="{{route('file.edit', ['file' => $model->id])}}" class="btn btn-info"><i class="fa fa-edit"></i></a>

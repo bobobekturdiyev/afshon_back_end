@@ -9,7 +9,7 @@
     <meta name="author" content="pixelstrap">
     <link rel="icon" href="{{asset('vendor/programmeruz/laravel-creator/images/logo/photo.png')}}" type="image/x-icon">
     <link rel="shortcut icon" href="{{asset('vendor/programmeruz/laravel-creator/images/logo/photo.png')}}" type="image/x-icon">
-    <title>Programmer UZ</title>
+    <title>Afshon</title>
     <!-- Google font-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">

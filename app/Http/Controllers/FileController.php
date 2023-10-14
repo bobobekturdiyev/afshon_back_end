@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\File;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class FileController extends Controller
@@ -12,7 +13,9 @@ class FileController extends Controller
      */
     public function index()
     {
-        $models = File::orderByDesc('id')->get();
+        $lang = app()->getLocale();
+
+        $models = File::select("name_$lang as name", "excerpt_$lang as excerpt","id","keywords","image")->orderByDesc('id')->get();
 
         return view('file.file', ['models' => $models]);
     }
@@ -38,34 +41,32 @@ class FileController extends Controller
 			'excerpt_ru' => 'required|string|max:255',
 			'excerpt_en' => 'required|string|max:255',
 			'keywords' => 'required|string|max:255',
-			'url' => 'required|mimes:255',
-			'image' => 'required|string|max:255',
-			'user_id' => 'required|integer'
+			'url' => 'required',
+			'image' => 'required|mimes:jpg,png,jpeg',
         ]);
 
-        $file = new File();
-        $file->name_uz = $request->name_uz;
-		$file->name_ru = $request->name_ru;
-		$file->name_en = $request->name_en;
-		$file->excerpt_uz = $request->excerpt_uz;
-		$file->excerpt_ru = $request->excerpt_ru;
-		$file->excerpt_en = $request->excerpt_en;
-		$file->keywords = $request->keywords;
+        $model = new File();
+        $model->name_uz = $request->name_uz;
+        $model->name_ru = $request->name_ru;
+        $model->name_en = $request->name_en;
+        $model->excerpt_uz = $request->excerpt_uz;
+        $model->excerpt_ru = $request->excerpt_ru;
+        $model->excerpt_en = $request->excerpt_en;
+        $model->keywords = $request->keywords;
 		if ($request->hasFile("url")) {
             $file = $request->file("url");
             $filename = time(). "_" . $file->getClientOriginalName();
-            if ($file->url) {
-                $oldFilePath = 'uploads/url/'.basename($file->url);
-                if (file_exists($oldFilePath)) {
-                    unlink($oldFilePath);
-                }
-            }
-            $file->move("uploads/url", $filename);
-            $file->url = asset("uploads/url/$filename");
+            $file->move("uploads/files", $filename);
+            $model->url = asset("uploads/files/$filename");
         }
-		$file->image = $request->image;
-		$file->user_id = $request->user_id;
-        $file->save();
+        if ($request->hasFile("image")) {
+            $file = $request->file("image");
+            $filename = time(). "_" . $file->getClientOriginalName();
+            $file->move("uploads/files", $filename);
+            $model->image = asset("uploads/files/$filename");
+        }
+        $model->user_id = User::first()->id;
+        $model->save();
 
         return redirect()->route('file.index')->with(['message' => "File create successfully"]);
     }
@@ -104,38 +105,44 @@ class FileController extends Controller
 			'excerpt_ru' => 'required|string|max:255',
 			'excerpt_en' => 'required|string|max:255',
 			'keywords' => 'required|string|max:255',
-			'url' => 'required|mimes:255',
-			'image' => 'required|string|max:255',
-			'user_id' => 'required|integer'
         ]);
 
-        $file = File::find($id);
-        if (!$file) {
+        $model = File::find($id);
+        if (!$model) {
             abort(404);
         }
-        $file->name_uz = $request->name_uz;
-		$file->name_ru = $request->name_ru;
-		$file->name_en = $request->name_en;
-		$file->excerpt_uz = $request->excerpt_uz;
-		$file->excerpt_ru = $request->excerpt_ru;
-		$file->excerpt_en = $request->excerpt_en;
-		$file->keywords = $request->keywords;
+        $model->name_uz = $request->name_uz;
+        $model->name_ru = $request->name_ru;
+        $model->name_en = $request->name_en;
+        $model->excerpt_uz = $request->excerpt_uz;
+        $model->excerpt_ru = $request->excerpt_ru;
+        $model->excerpt_en = $request->excerpt_en;
+        $model->keywords = $request->keywords;
 		if ($request->hasFile("url")) {
             $file = $request->file("url");
             $filename = time(). "_" . $file->getClientOriginalName();
             if ($file->url) {
-                $oldFilePath = 'uploads/url/'.basename($file->url);
+                $oldFilePath = 'uploads/files/'.basename($file->url);
                 if (file_exists($oldFilePath)) {
                     unlink($oldFilePath);
                 }
             }
-            $file->move("uploads/url", $filename);
-            $file->url = asset("uploads/url/$filename");
+            $file->move("uploads/files", $filename);
+            $model->url = asset("uploads/files/$filename");
         }
-		$file->image = $request->image;
-		$file->user_id = $request->user_id;
-        $file->update();
-
+        if ($request->hasFile("image")) {
+            $file = $request->file("image");
+            $filename = time(). "_" . $file->getClientOriginalName();
+            if ($file->image) {
+                $oldFilePath = 'uploads/files/'.basename($file->image);
+                if (file_exists($oldFilePath)) {
+                    unlink($oldFilePath);
+                }
+            }
+            $file->move("uploads/files", $filename);
+            $model->image = asset("uploads/files/$filename");
+        }
+        $model->update();
         return redirect()->route('file.index')->with(['message' => "File update successfully"]);
     }
     /**
@@ -148,7 +155,7 @@ class FileController extends Controller
             abort(404);
         }
         if ($file->url) {
-            $oldFilePath = 'uploads/url/'.basename($file->url);
+            $oldFilePath = 'uploads/files/'.basename($file->url);
             if (file_exists($oldFilePath)) {
                 unlink($oldFilePath);
             }
