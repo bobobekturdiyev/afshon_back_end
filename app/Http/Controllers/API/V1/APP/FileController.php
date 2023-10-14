@@ -52,7 +52,7 @@ class FileController extends Controller
         where('file_join_subjects.subject_id', $subject_id)->
         get();
 
-        return FileResource::collection($subjects);
+        return response()->json(FileResource::collection($subjects));
 
     }
 
@@ -82,7 +82,7 @@ class FileController extends Controller
         $keyword = strtolower($keyword);
         $model = File::where('keywords', 'LIKE', "%$keyword%")->get();
 
-        return FileResource::collection($model);
+        return response()->json(FileResource::collection($model));
     }
 
     /**
@@ -118,6 +118,6 @@ class FileController extends Controller
             orWhere('keywords', 'like', "%$text%")->
             orWhere('image', 'like', "%$text%");
         })->paginate(10);
-        return FileResource::collection($model);
+        return response()->json(FileResource::collection($model));
     }
 }

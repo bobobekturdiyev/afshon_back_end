@@ -41,9 +41,7 @@ class SubjectController extends Controller
     public function index()
     {
         $subjects = Subject::all();
-        return response()->json([
-            'data' => SubjectResource::collection($subjects),
-        ]);
+        return response()->json(SubjectResource::collection($subjects));
     }
 
     /**
@@ -76,7 +74,7 @@ class SubjectController extends Controller
                 'message' => "Subject is not found",
             ], 404);
         }
-        return new SubjectShowResource($model);
+        return response()->json(new SubjectShowResource($model));
     }
 
 }
