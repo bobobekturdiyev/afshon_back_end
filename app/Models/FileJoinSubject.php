@@ -24,4 +24,8 @@ class FileJoinSubject extends Model
     {
         return $this->belongsTo(Subject::class);
     }
+
+    public function lang($data){
+        return $data .'_'. app()->getLocale();
+    }
 }

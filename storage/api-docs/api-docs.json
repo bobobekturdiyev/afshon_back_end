@@ -5,12 +5,12 @@
         "version": "1.0"
     },
     "paths": {
-        "/api/app/file/{subject_id}": {
+        "/api/app/file-by-subject/{subject_id}": {
             "get": {
                 "tags": [
                     "File"
                 ],
-                "description": "Retrieve all File",
+                "description": "Get file with subject ID",
                 "operationId": "file_index",
                 "parameters": [
                     {
@@ -20,6 +20,48 @@
                         "required": true,
                         "schema": {
                             "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/File"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/app/file-by-keyword/{keyword}": {
+            "get": {
+                "tags": [
+                    "File"
+                ],
+                "description": "Get file with keyword",
+                "operationId": "file_show",
+                "parameters": [
+                    {
+                        "name": "keyword",
+                        "in": "path",
+                        "description": "Keyword of subject",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
                         }
                     }
                 ],

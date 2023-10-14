@@ -26,7 +26,7 @@ class FileFactory extends Factory
             'excerpt_en' => fake()->text,
             'keywords' => fake()->unique()->word,
             'url' => fake()->url,
-            'image' => 'https://www.google.',
+            'image' => 'https://images.ctfassets.net/23aumh6u8s0i/7gu8qd0qzmuxWWjYLhZpqo/2bb8a206fe4a86af9414545b5c25c368/laravel',
             'user_id' => User::all()->random()->id,
         ];
     }

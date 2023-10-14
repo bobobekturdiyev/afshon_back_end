@@ -19,7 +19,7 @@ return new class extends Migration
 			$table->text('excerpt_uz');
 			$table->text('excerpt_ru');
 			$table->text('excerpt_en');
-			$table->string('keywords', 255);
+			$table->string('keywords', 255)->unique();
 			$table->string('url', 255);
 			$table->string('image', 255);
 			$table->unsignedBigInteger('user_id');

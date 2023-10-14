@@ -10,7 +10,7 @@ class File extends Model
     use HasFactory;
 
     protected $fillable = [
-        
+
 	'id',
 	'name_uz',
 	'name_ru',
@@ -23,4 +23,8 @@ class File extends Model
 	'image',
 	'user_id',
     ];
+
+    public function lang($data){
+        return $data .'_'. app()->getLocale();
+    }
 }

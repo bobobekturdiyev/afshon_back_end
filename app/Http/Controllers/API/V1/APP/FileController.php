@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API\V1\APP;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\API\V1\APP\FileResource;
+use App\Models\File;
 use App\Models\FileJoinSubject;
 use Illuminate\Http\Request;
 /**
@@ -25,9 +26,9 @@ class FileController extends Controller
 {
     /**
      * @OA\Get(
-     *      path="/api/app/file/{subject_id}",
+     *      path="/api/app/file-by-subject/{subject_id}",
      *      operationId="file_index",
-     *      description="Retrieve all File",
+     *      description="Get file with subject ID",
      *      tags={"File"},
      *      @OA\Parameter(
      *          name="subject_id",
@@ -51,9 +52,36 @@ class FileController extends Controller
         where('file_join_subjects.subject_id', $subject_id)->
         get();
 
-        return response()->json([
-            'data' => FileResource::collection($subjects),
-        ]);
+        return FileResource::collection($subjects);
 
+    }
+
+    /**
+     * @OA\Get(
+     *      path="/api/app/file-by-keyword/{keyword}",
+     *      operationId="file_show",
+     *      description="Get file with keyword",
+     *      tags={"File"},
+     *      @OA\Parameter(
+     *          name="keyword",
+     *          in="path",
+     *          required=true,
+     *          description="Keyword of subject",
+     *          @OA\Schema(type="string")
+     *      ),
+     *      @OA\Response(response=200,description="Successful operation",
+     *           @OA\JsonContent(ref="#/components/schemas/File"),
+     *      ),
+     *      @OA\Response(response=404,description="Not found",
+     *          @OA\JsonContent(ref="#/components/schemas/Error"),
+     *      ),
+     * )
+     */
+    public function show($keyword)
+    {
+        $keyword = strtolower($keyword);
+        $model = File::where('keywords', 'LIKE', "%$keyword%")->get();
+
+        return FileResource::collection($model);
     }
 }

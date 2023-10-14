@@ -17,7 +17,7 @@ class FileResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->{$this->lang('name')},
-            'excerpt_uz' => $this->excerpt,
+            'excerpt' => $this->{$this->lang('excerpt')},
             'keywords' => $this->keywords,
             'url' => $this->url,
             'image' => $this->image,
