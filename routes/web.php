@@ -16,3 +16,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('dashboard', function (){
+	return view('dashboard');
+})->name('dashboard');
+Route::resource('user', \App\Http\Controllers\UserController::class);
+Route::resource('subject', \App\Http\Controllers\SubjectController::class);
+Route::resource('file', \App\Http\Controllers\FileController::class);
+Route::resource('file_join_subject', \App\Http\Controllers\FileJoinSubjectController::class);
