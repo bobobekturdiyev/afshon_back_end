@@ -133,8 +133,8 @@ class FileController extends Controller
         if ($request->hasFile("image")) {
             $file = $request->file("image");
             $filename = time(). "_" . $file->getClientOriginalName();
-            if ($file->image) {
-                $oldFilePath = 'uploads/files/'.basename($file->image);
+            if ($model->image) {
+                $oldFilePath = 'uploads/files/'.basename($model->image);
                 if (file_exists($oldFilePath)) {
                     unlink($oldFilePath);
                 }
@@ -156,6 +156,12 @@ class FileController extends Controller
         }
         if ($file->url) {
             $oldFilePath = 'uploads/files/'.basename($file->url);
+            if (file_exists($oldFilePath)) {
+                unlink($oldFilePath);
+            }
+        }
+        if ($file->image) {
+            $oldFilePath = 'uploads/files/'.basename($file->image);
             if (file_exists($oldFilePath)) {
                 unlink($oldFilePath);
             }
