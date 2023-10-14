@@ -1,0 +1,135 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Afshon.uz",
+        "version": "1.0"
+    },
+    "paths": {
+        "/api/app/subject": {
+            "get": {
+                "tags": [
+                    "Subjects"
+                ],
+                "description": "Retrieve all Subject",
+                "operationId": "subject_index",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Subject"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/app/subject/{id}": {
+            "get": {
+                "tags": [
+                    "Subjects"
+                ],
+                "description": "Retrieve a single Image by its ID",
+                "operationId": "subject_show",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of subject",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Subject"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Subject": {
+                "title": "Subject title",
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "example": "Successfully"
+                    },
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "properties": {
+                                "id": {
+                                    "type": "integer"
+                                },
+                                "title": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "Error": {
+                "title": "ResponseError",
+                "properties": {
+                    "success": {
+                        "type": "boolean",
+                        "example": false
+                    },
+                    "message": {
+                        "type": "string",
+                        "example": "Not found"
+                    },
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "example": []
+                    },
+                    "code": {
+                        "type": "integer",
+                        "example": 404
+                    }
+                },
+                "type": "object"
+            }
+        }
+    }
+}

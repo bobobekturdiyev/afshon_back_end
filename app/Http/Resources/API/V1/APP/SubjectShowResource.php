@@ -4,7 +4,7 @@ namespace App\Http\Resources\API\V1\APP;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class SubjectResource extends JsonResource
+class SubjectShowResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,7 +17,7 @@ class SubjectResource extends JsonResource
         return [
             'id' => $this->id,
             'title' => $this->{$this->lang('title')},
-            'image' => $this->image,
+            'files' => $this->files,
         ];
     }
 }
