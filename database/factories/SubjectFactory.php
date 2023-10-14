@@ -20,6 +20,7 @@ class SubjectFactory extends Factory
             'title_uz' => fake()->word,
             'title_ru' => fake()->word,
             'title_en' => fake()->word,
+            'image' => 'https://www.google.com/url?sa=i&url=https%3A%2F%2Fflamingtext.com%2FWord-Logos%2Fsubject%2F&psig=AOvVaw2t2pV-0X2i7gaJD4BSKmZy&ust=1697366783769000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCPjkt5Ou9YEDFQAAAAAdAAAAABAE'
         ];
     }
 }

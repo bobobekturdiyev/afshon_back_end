@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             SubjectSeeder::class,
             FileSeeder::class,
+            FileJoinSubjectSeeder::class,
         ]);
         // \App\Models\User::factory(10)->create();
 
