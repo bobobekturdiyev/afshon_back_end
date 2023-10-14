@@ -10,9 +10,16 @@ class FileJoinSubject extends Model
     use HasFactory;
 
     protected $fillable = [
-        
 	'id',
 	'file_id',
 	'subject_id',
     ];
+
+    public function file(){
+        return $this->belongsTo(File::class);
+    }
+    public function subject(){
+        return $this->belongsTo(Subject::class);
+    }
+
 }

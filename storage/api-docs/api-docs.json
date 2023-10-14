@@ -5,6 +5,48 @@
         "version": "1.0"
     },
     "paths": {
+        "/api/app/file/{subject_id}": {
+            "get": {
+                "tags": [
+                    "File"
+                ],
+                "description": "Retrieve all File",
+                "operationId": "file_index",
+                "parameters": [
+                    {
+                        "name": "subject_id",
+                        "in": "path",
+                        "description": "ID of subject",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/File"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/api/app/subject": {
             "get": {
                 "tags": [
@@ -81,6 +123,30 @@
     },
     "components": {
         "schemas": {
+            "File": {
+                "title": "File title",
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "example": "Successfully"
+                    },
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "properties": {
+                                "id": {
+                                    "type": "integer"
+                                },
+                                "title": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                },
+                "type": "object"
+            },
             "Subject": {
                 "title": "Subject title",
                 "properties": {

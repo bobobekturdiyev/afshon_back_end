@@ -78,4 +78,5 @@ class SubjectController extends Controller
         }
         return new SubjectShowResource($model);
     }
+
 }

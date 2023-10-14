@@ -20,8 +20,8 @@ class FileJoinSubjectFactory extends Factory
     public function definition()
     {
         return [
-            'file_id' => File::all()->random()->id,
-            'subject_id' => Subject::all()->random()->id,
+            'file_id' => File::all()->unique()->random()->id,
+            'subject_id' => Subject::all()->unique()->random()->id,
         ];
     }
 }
