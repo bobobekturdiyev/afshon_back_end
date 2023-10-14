@@ -39,7 +39,7 @@
 									<div class='mb-3 row'>
                                         <label class='col-sm-3 col-form-label'>Email</label>
                                         <div class='col-sm-9'>
-                                            <input class='form-control'  type='text' name='email' value='{{$model->email}}' placeholder='Email'>
+                                            <input class='form-control'  type='email' name='email' value='{{$model->email}}' placeholder='Email'>
                                             @error('email')
                                             <p class='text-danger'>{{$message}}</p>
                                             @enderror
@@ -48,17 +48,8 @@
 									<div class='mb-3 row'>
                                         <label class='col-sm-3 col-form-label'>Password</label>
                                         <div class='col-sm-9'>
-                                            <input class='form-control'  type='text' name='password' value='{{$model->password}}' placeholder='Password'>
+                                            <input class='form-control'  type='password' name='password' value='' placeholder='Password'>
                                             @error('password')
-                                            <p class='text-danger'>{{$message}}</p>
-                                            @enderror
-                                        </div>
-                                    </div>
-									<div class='mb-3 row'>
-                                        <label class='col-sm-3 col-form-label'>Role</label>
-                                        <div class='col-sm-9'>
-                                            <input class='form-control'  type='text' name='role' value='{{$model->role}}' placeholder='Role'>
-                                            @error('role')
                                             <p class='text-danger'>{{$message}}</p>
                                             @enderror
                                         </div>

@@ -44,15 +44,6 @@
                 </div>
             </div>
         </div>
-        <div class='col-3 p-3'>
-            <div class='card'>
-                <div class='card-body'>
-                    <a href="{{route('file_join_subject.index')}}">
-                        <h4>FileJoinSubject</h4>
-                    </a>
-                </div>
-            </div>
-        </div>
         <!-- ADD_ITEM -->
 @endsection
 @section('script')

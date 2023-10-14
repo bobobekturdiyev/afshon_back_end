@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -32,17 +33,16 @@ class UserController extends Controller
     {
         $this->validate($request,[
             'first_name' => 'required|string|max:255',
-			'email' => 'required|string|max:255',
-			'password' => 'required|string|max:255',
-			'role' => 'required|string|max:255'
+			'email' => 'required|email|unique:users,email|max:255',
+			'password' => 'required|string|min:8|max:255',
         ]);
 
         $user = new User();
         $user->first_name = $request->first_name;
 		$user->last_name = $request->last_name;
 		$user->email = $request->email;
-		$user->password = $request->password;
-		$user->role = $request->role;
+		$user->password = Hash::make($request->password);
+		$user->role = 'admin';
         $user->save();
 
         return redirect()->route('user.index')->with(['message' => "User create successfully"]);
@@ -76,9 +76,7 @@ class UserController extends Controller
     {
         $this->validate($request, [
             'first_name' => 'required|string|max:255',
-			'email' => 'required|string|max:255',
-			'password' => 'required|string|max:255',
-			'role' => 'required|string|max:255'
+			'email' => 'required|email|max:255',
         ]);
 
         $user = User::find($id);
@@ -88,8 +86,9 @@ class UserController extends Controller
         $user->first_name = $request->first_name;
 		$user->last_name = $request->last_name;
 		$user->email = $request->email;
-		$user->password = $request->password;
-		$user->role = $request->role;
+        if($request->password){
+            $user->password = Hash::make($request->password);
+        }
         $user->update();
 
         return redirect()->route('user.index')->with(['message' => "User update successfully"]);
@@ -103,7 +102,7 @@ class UserController extends Controller
         if(!$user){
             abort(404);
         }
-        
+
         $user->delete();
 
         return redirect()->route('user.index')->with(['message' => 'User delete successfully']);
