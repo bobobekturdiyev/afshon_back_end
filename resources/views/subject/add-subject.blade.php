@@ -44,6 +44,15 @@
                                             @enderror
                                         </div>
                                     </div>
+                                    <div class='mb-3 row'>
+                                        <label class='col-sm-3 col-form-label'>Image</label>
+                                        <div class='col-sm-9'>
+                                            <input class='form-control' name='image' type='file'>
+                                            @error('image')
+                                            <p class='text-danger'>{{$message}}</p>
+                                            @enderror
+                                        </div>
+                                    </div>
                                     <div class="card-footer">
                                         <div class="col-sm-9 offset-sm-3">
                                             <button class="btn btn-primary" type="submit">Submit</button>

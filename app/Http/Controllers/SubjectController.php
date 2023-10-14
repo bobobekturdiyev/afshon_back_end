@@ -35,12 +35,19 @@ class SubjectController extends Controller
             'title_uz' => 'required|string|max:255',
 			'title_ru' => 'required|string|max:255',
 			'title_en' => 'required|string|max:255',
+			'image' => 'required|mimes:png',
         ]);
 
         $subject = new Subject();
         $subject->title_uz = $request->title_uz;
 		$subject->title_ru = $request->title_ru;
 		$subject->title_en = $request->title_en;
+        if ($request->hasFile("image")) {
+            $file = $request->file("image");
+            $filename = time(). "_" . $file->getClientOriginalName();
+            $file->move("uploads/files", $filename);
+            $subject->image = asset("uploads/files/$filename");
+        }
 		$subject->type = 'aniq';
         $subject->save();
 
@@ -86,6 +93,18 @@ class SubjectController extends Controller
         $subject->title_uz = $request->title_uz;
 		$subject->title_ru = $request->title_ru;
 		$subject->title_en = $request->title_en;
+        if ($request->hasFile("image")) {
+            $file = $request->file("image");
+            $filename = time(). "_" . $file->getClientOriginalName();
+            if ($subject->image) {
+                $oldFilePath = 'uploads/files/'.basename($subject->image);
+                if (file_exists($oldFilePath)) {
+                    unlink($oldFilePath);
+                }
+            }
+            $file->move("uploads/files", $filename);
+            $subject->image = asset("uploads/files/$filename");
+        }
         $subject->update();
 
         return redirect()->route('subject.index')->with(['message' => "Subject update successfully"]);
