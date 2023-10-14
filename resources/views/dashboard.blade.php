@@ -1,6 +1,6 @@
 @extends('layouts.simple.master')
 
-@section('title', 'Programmer UZ')
+@section('title', 'Afshon')
 
 @section('style')
 

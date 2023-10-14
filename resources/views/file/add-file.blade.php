@@ -81,7 +81,7 @@
                                         </div>
                                     </div>
 									<div class='mb-3 row'>
-                                        <label class='col-sm-3 col-form-label'>Url</label>
+                                        <label class='col-sm-3 col-form-label'>Object</label>
                                         <div class='col-sm-9'>
                                             <input class='form-control' name='url' type='file'>
                                             @error('url')
@@ -89,20 +89,11 @@
                                             @enderror
                                         </div>
                                     </div>
-									<div class='mb-3 row'>
+                                    <div class='mb-3 row'>
                                         <label class='col-sm-3 col-form-label'>Image</label>
                                         <div class='col-sm-9'>
-                                            <input class='form-control'  type='text' name='image' value="{{old('image')}}" placeholder='Image'>
+                                            <input class='form-control' name='image' type='file'>
                                             @error('image')
-                                            <p class='text-danger'>{{$message}}</p>
-                                            @enderror
-                                        </div>
-                                    </div>
-									<div class='mb-3 row'>
-                                        <label class='col-sm-3 col-form-label'>User Id</label>
-                                        <div class='col-sm-9'>
-                                            <input class='form-control'  type='text' name='user_id' value="{{old('user_id')}}" placeholder='User Id'>
-                                            @error('user_id')
                                             <p class='text-danger'>{{$message}}</p>
                                             @enderror
                                         </div>

@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\File;
 use App\Models\FileJoinSubject;
+use App\Models\Subject;
 use Illuminate\Http\Request;
 
 class FileJoinSubjectController extends Controller
@@ -13,7 +15,6 @@ class FileJoinSubjectController extends Controller
     public function index()
     {
         $models = FileJoinSubject::orderByDesc('id')->get();
-
         return view('file_join_subject.file_join_subject', ['models' => $models]);
     }
 
@@ -22,7 +23,10 @@ class FileJoinSubjectController extends Controller
      */
     public function create()
     {
-        return view('file_join_subject.add-file_join_subject');
+        $lang = app()->getLocale();
+        $files = File::select('id',"name_$lang as name")->get();
+        $subjects = Subject::select('id',"title_$lang as title")->get();
+        return view('file_join_subject.add_file_join_subject', ['files' => $files, 'subjects' => $subjects]);
     }
 
     /**
@@ -31,8 +35,8 @@ class FileJoinSubjectController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,[
-            'file_id' => 'required|integer',
-			'subject_id' => 'required|integer'
+            'file_id' => 'required|exists:files,id',
+			'subject_id' => 'required|exists:subjects,id'
         ]);
 
         $file_join_subject = new FileJoinSubject();
@@ -58,10 +62,13 @@ class FileJoinSubjectController extends Controller
     public function edit(string $id)
     {
         $file_join_subject = FileJoinSubject::find($id);
+        $lang = app()->getLocale();
+        $files = File::select('id',"name_$lang as name")->get();
+        $subjects = Subject::select('id',"title_$lang as title")->get();
         if(!$file_join_subject){
             abort(404);
         }
-        return view('file_join_subject.edit-file_join_subject', ['model' => $file_join_subject]);
+        return view('file_join_subject.edit_file_join_subject', ['model' => $file_join_subject,'files' => $files, 'subjects' => $subjects]);
     }
 
     /**
@@ -70,8 +77,8 @@ class FileJoinSubjectController extends Controller
     public function update(Request $request, string $id)
     {
         $this->validate($request, [
-            'file_id' => 'required|integer',
-			'subject_id' => 'required|integer'
+            'file_id' => 'required|exists:files,id',
+            'subject_id' => 'required|exists:subjects,id'
         ]);
 
         $file_join_subject = FileJoinSubject::find($id);
@@ -93,7 +100,7 @@ class FileJoinSubjectController extends Controller
         if(!$file_join_subject){
             abort(404);
         }
-        
+
         $file_join_subject->delete();
 
         return redirect()->route('file_join_subject.index')->with(['message' => 'FileJoinSubject delete successfully']);
