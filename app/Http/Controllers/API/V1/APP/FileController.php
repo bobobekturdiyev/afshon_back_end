@@ -62,12 +62,13 @@ class FileController extends Controller
      *      operationId="file_show",
      *      description="Get file with keyword",
      *      tags={"File"},
-     *      @OA\Parameter(
-     *          name="keyword",
-     *          in="path",
-     *          required=true,
-     *          description="Keyword of subject",
-     *          @OA\Schema(type="string")
+     *      @OA\RequestBody(required=true,
+     *          @OA\MediaType(mediaType="application/json",
+     *          @OA\Schema(type="object",
+     *                  required={"text"},
+     *              @OA\Property(property="text", type="integer", format="number", example="1"),
+     *          )
+     *      )
      *      ),
      *      @OA\Response(response=200,description="Successful operation",
      *           @OA\JsonContent(ref="#/components/schemas/File"),
@@ -86,8 +87,8 @@ class FileController extends Controller
     }
 
     /**
-     * @OA\Get(
-     *      path="/api/app/search/{text}",
+     * @OA\Post(
+     *      path="/api/app/file-search/",
      *      operationId="file_search",
      *      description="Search File",
      *      tags={"File"},
@@ -106,8 +107,9 @@ class FileController extends Controller
      *      ),
      * )
      */
-    public function search($text)
+    public function search(Request  $request)
     {
+        $text = $request->text;
         $model = File::where(function ($query) use ($text) {
             $query->where('name_uz', 'like', "%$text%")->
             orWhere('name_ru', 'like', "%$text%")->
