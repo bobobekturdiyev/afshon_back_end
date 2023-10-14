@@ -34,14 +34,13 @@ class SubjectController extends Controller
             'title_uz' => 'required|string|max:255',
 			'title_ru' => 'required|string|max:255',
 			'title_en' => 'required|string|max:255',
-			'type' => 'required|string|max:255'
         ]);
 
         $subject = new Subject();
         $subject->title_uz = $request->title_uz;
 		$subject->title_ru = $request->title_ru;
 		$subject->title_en = $request->title_en;
-		$subject->type = $request->type;
+		$subject->type = 'aniq';
         $subject->save();
 
         return redirect()->route('subject.index')->with(['message' => "Subject create successfully"]);
@@ -77,7 +76,6 @@ class SubjectController extends Controller
             'title_uz' => 'required|string|max:255',
 			'title_ru' => 'required|string|max:255',
 			'title_en' => 'required|string|max:255',
-			'type' => 'required|string|max:255'
         ]);
 
         $subject = Subject::find($id);
@@ -87,7 +85,6 @@ class SubjectController extends Controller
         $subject->title_uz = $request->title_uz;
 		$subject->title_ru = $request->title_ru;
 		$subject->title_en = $request->title_en;
-		$subject->type = $request->type;
         $subject->update();
 
         return redirect()->route('subject.index')->with(['message' => "Subject update successfully"]);
@@ -101,7 +98,7 @@ class SubjectController extends Controller
         if(!$subject){
             abort(404);
         }
-        
+
         $subject->delete();
 
         return redirect()->route('subject.index')->with(['message' => 'Subject delete successfully']);

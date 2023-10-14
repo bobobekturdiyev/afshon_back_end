@@ -38,7 +38,7 @@
 									<div class='mb-3 row'>
                                         <label class='col-sm-3 col-form-label'>Email</label>
                                         <div class='col-sm-9'>
-                                            <input class='form-control'  type='text' name='email' value="{{old('email')}}" placeholder='Email'>
+                                            <input class='form-control'  type='email' name='email' value="{{old('email')}}" placeholder='Email'>
                                             @error('email')
                                             <p class='text-danger'>{{$message}}</p>
                                             @enderror
@@ -47,17 +47,8 @@
 									<div class='mb-3 row'>
                                         <label class='col-sm-3 col-form-label'>Password</label>
                                         <div class='col-sm-9'>
-                                            <input class='form-control'  type='text' name='password' value="{{old('password')}}" placeholder='Password'>
+                                            <input class='form-control'  type='password' name='password' value="{{old('password')}}" placeholder='Password'>
                                             @error('password')
-                                            <p class='text-danger'>{{$message}}</p>
-                                            @enderror
-                                        </div>
-                                    </div>
-									<div class='mb-3 row'>
-                                        <label class='col-sm-3 col-form-label'>Role</label>
-                                        <div class='col-sm-9'>
-                                            <input class='form-control'  type='text' name='role' value="{{old('role')}}" placeholder='Role'>
-                                            @error('role')
                                             <p class='text-danger'>{{$message}}</p>
                                             @enderror
                                         </div>

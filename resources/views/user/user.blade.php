@@ -38,7 +38,6 @@
 								<th scope='col'>First Name</th>
 								<th scope='col'>Last Name</th>
 								<th scope='col'>Email</th>
-								<th scope='col'>Password</th>
 								<th scope='col'>Role</th>
 								<th scope="col">Action</th>
                             </tr>
@@ -50,7 +49,6 @@
 								<td>{{$model->first_name}}</td>
 								<td>{{$model->last_name}}</td>
 								<td>{{$model->email}}</td>
-								<td>{{$model->password}}</td>
 								<td>{{$model->role}}</td>
                                 <td>
                                     <div class="btn-group">
