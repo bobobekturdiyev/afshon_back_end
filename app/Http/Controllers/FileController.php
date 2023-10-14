@@ -121,8 +121,8 @@ class FileController extends Controller
 		if ($request->hasFile("url")) {
             $file = $request->file("url");
             $filename = time(). "_" . $file->getClientOriginalName();
-            if ($file->url) {
-                $oldFilePath = 'uploads/files/'.basename($file->url);
+            if ($model->url) {
+                $oldFilePath = 'uploads/files/'.basename($model->url);
                 if (file_exists($oldFilePath)) {
                     unlink($oldFilePath);
                 }
