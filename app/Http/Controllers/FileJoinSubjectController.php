@@ -53,7 +53,7 @@ class FileJoinSubjectController extends Controller
     public function show(string $id)
     {
         $file_join_subject = FileJoinSubject::find($id);
-        return view('file_join_subject.delete-file_join_subject', ['id' => $id, 'model' => $file_join_subject]);
+        return view('file_join_subject.delete_file_join_subject', ['id' => $id, 'model' => $file_join_subject]);
     }
 
     /**

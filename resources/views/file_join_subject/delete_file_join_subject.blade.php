@@ -19,18 +19,18 @@
                                     @method('delete')
                                     @csrf
                                     <div class='mb-3 row'>
-                                        <label class='col-sm-3 col-form-label'>File Id</label>
+                                        <label class='col-sm-3 col-form-label'>File</label>
                                         <div class='col-sm-9'>
-                                            <input class='form-control' disabled  type='text' name='file_id' value='{{$model->file_id}}' placeholder='File Id'>
+                                            <input class='form-control' disabled  type='text' name='file_id' value='{{$model->file->name_uz}}' placeholder='File Id'>
                                             @error('file_id')
                                             <p class='text-danger'>{{$message}}</p>
                                             @enderror
                                         </div>
                                     </div>
                                     <div class='mb-3 row'>
-                                        <label class='col-sm-3 col-form-label'>Subject Id</label>
+                                        <label class='col-sm-3 col-form-label'>Subject</label>
                                         <div class='col-sm-9'>
-                                            <input class='form-control' disabled  type='text' name='subject_id' value='{{$model->subject_id}}' placeholder='Subject Id'>
+                                            <input class='form-control' disabled  type='text' name='subject_id' value='{{$model->subject->title_en}}' placeholder='Subject Id'>
                                             @error('subject_id')
                                             <p class='text-danger'>{{$message}}</p>
                                             @enderror

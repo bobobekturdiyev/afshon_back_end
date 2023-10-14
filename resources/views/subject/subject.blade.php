@@ -45,7 +45,7 @@
                             <tr>
                                 <td>{{$model->id}}</td>
 								<td>{{$model->title}}</td>
-								<td>{{is_array($model) ? count($model->files) : 0}}</td>
+								<td>{{count($model->files)}}</td>
                                 <td>
                                     <div class="btn-group">
                                         <a href="{{route('subject.edit', ['subject' => $model->id])}}" class="btn btn-info"><i class="fa fa-edit"></i></a>

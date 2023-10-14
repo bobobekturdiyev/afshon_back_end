@@ -19,13 +19,12 @@
                                     @method('put')
                                     @csrf
                                     <div class='mb-3 row'>
-                                        <label class='col-sm-3 col-form-label' for="file">File Id</label>
+                                        <label class='col-sm-3 col-form-label' for="file">File</label>
                                         <div class='col-sm-9'>
                                             <select name="file_id" id="file" class="form-control">
                                                 <option value disabled selected>Select this one</option>
                                                 @foreach($files as $file)
                                                     <option {{$file->id == $model->file_id ? 'selected' : ''}} value="{{$file->id}}">{{$file->name}}</option>
-
                                                 @endforeach
                                             </select>
                                             @error('file_id')
@@ -34,7 +33,7 @@
                                         </div>
                                     </div>
                                     <div class='mb-3 row'>
-                                        <label class='col-sm-3 col-form-label'>Subject Id</label>
+                                        <label class='col-sm-3 col-form-label'>Subject</label>
                                         <div class='col-sm-9'>
                                             <select name="subject_id" id="file" class="form-control" required>
                                                 @foreach($subjects as $subject)

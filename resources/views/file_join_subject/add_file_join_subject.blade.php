@@ -18,7 +18,7 @@
                                 <form class="form theme-form" action="{{route('file_join_subject.store')}}" method="POST" enctype="multipart/form-data">
                                     @csrf
                                     <div class='mb-3 row'>
-                                        <label class='col-sm-3 col-form-label' for="file">File Id</label>
+                                        <label class='col-sm-3 col-form-label' for="file">File</label>
                                         <div class='col-sm-9'>
                                             <select name="file_id" id="file" class="form-control">
                                                 <option value disabled selected>Select this one</option>
@@ -32,7 +32,7 @@
                                         </div>
                                     </div>
                                     <div class='mb-3 row'>
-                                        <label class='col-sm-3 col-form-label'>Subject Id</label>
+                                        <label class='col-sm-3 col-form-label'>Subject</label>
                                         <div class='col-sm-9'>
                                             <select name="subject_id" id="file" class="form-control" required>
                                                 <option value disabled selected>Select this one</option>
