@@ -26,16 +26,22 @@
                     @csrf
                     <h6>Welcome back! Log in to your account.</h6>
                     <div class="form-group">
-                        <label>Email Address</label>
+                        <label for="email">Email Address</label>
                         <div class="input-group"><span class="input-group-text"><i class="icon-email"></i></span>
-                            <input class="form-control"  name="email" type="email" required="" placeholder="Test@gmail.com">
+                            <input class="form-control"  id="email" name="email" type="email" required="" placeholder="Test@gmail.com">
                         </div>
+                        @error('email')
+                        <p class='text-danger'>{{$message}}</p>
+                        @enderror
                     </div>
                     <div class="form-group">
-                        <label>Password</label>
+                        <label for="password">Password</label>
                         <div class="input-group"><span class="input-group-text"><i class="icon-lock"></i></span>
-                            <input class="form-control" type="password" name="password" required="" placeholder="*********">
+                            <input class="form-control"  id="password"  type="password" name="password" required="" placeholder="*********">
                         </div>
+                        @error('password')
+                        <p class='text-danger'>{{$message}}</p>
+                        @enderror
                     </div>
                     <div class="form-group mx-auto">
                         <button class="btn btn-primary btn-block" type="submit">Sign in</button>

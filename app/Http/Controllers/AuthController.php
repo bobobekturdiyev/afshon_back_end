@@ -16,20 +16,14 @@ class AuthController extends Controller
             'password' => 'required'
         ]);
         $user = User::where('email', $request->email)->first();
-        if ($user == null) {
-            return redirect()->back()->with([
-                "message" => 'User not found',
-                'm_status' => false,
-            ]);
+        if (!$user) {
+            return redirect()->back()->withErrors(['password' => 'User is not found']);
         } else {
             if (Hash::check($request->password, $user->password)) {
-                Auth::loginUsingId($user->id);
+                Auth::login($user);
                 return redirect()->route('dashboard');
             } else {
-                return redirect()->back()->with([
-                    "message" => 'Password is uncorrect !',
-                    'm_status' => false,
-                ]);
+                return redirect()->back()->withErrors(['password' => 'Password is incorrect']);
             }
         }
     }
