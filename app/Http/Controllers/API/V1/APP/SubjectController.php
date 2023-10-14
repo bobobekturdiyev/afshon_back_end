@@ -63,7 +63,7 @@ class SubjectController extends Controller
      *          @OA\Schema(type="integer")
      *      ),
      *      @OA\Response(response=200,description="Successful operation",
-     *          @OA\JsonContent(ref="#/components/schemas/Image"),
+     *          @OA\JsonContent(ref="#/components/schemas/Subject"),
      *     ),
      *      @OA\Response(response=404,description="Not found",
      *          @OA\JsonContent(ref="#/components/schemas/Error"),
@@ -103,7 +103,7 @@ class SubjectController extends Controller
      *          )
      *      ),
      *       @OA\Response(response=200,description="Successful operation",
-     *           @OA\JsonContent(ref="#/components/schemas/Image"),
+     *           @OA\JsonContent(ref="#/components/schemas/Subject"),
      *      ),
      *       @OA\Response(response=404,description="Not found",
      *          @OA\JsonContent(ref="#/components/schemas/Error"),
@@ -155,7 +155,7 @@ class SubjectController extends Controller
      *      ),
      *
      *     @OA\Response(response=200,description="Successful operation",
-     *           @OA\JsonContent(ref="#/components/schemas/Image"),
+     *           @OA\JsonContent(ref="#/components/schemas/Subject"),
      *      ),
      *     @OA\Response(response=404,description="Not found",
      *          @OA\JsonContent(ref="#/components/schemas/Error"),
@@ -211,7 +211,7 @@ class SubjectController extends Controller
      *          @OA\Schema(type="integer")
      *      ),
      *          @OA\Response(response=200,description="Successful operation",
-     *           @OA\JsonContent(ref="#/components/schemas/Image"),
+     *           @OA\JsonContent(ref="#/components/schemas/Subject"),
      *      ),
      *      @OA\Response(response=404,description="Not found",
      *          @OA\JsonContent(ref="#/components/schemas/Error"),

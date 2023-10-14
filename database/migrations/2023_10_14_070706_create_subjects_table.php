@@ -17,7 +17,7 @@ return new class extends Migration
 			$table->string('title_ru', 255);
 			$table->string('title_en', 255);
 			$table->enum('type', ['aniq'])->default('aniq');
-
+            $table->timestamps();
         });
     }
 
