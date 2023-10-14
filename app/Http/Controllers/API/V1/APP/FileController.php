@@ -84,4 +84,40 @@ class FileController extends Controller
 
         return FileResource::collection($model);
     }
+
+    /**
+     * @OA\Get(
+     *      path="/api/app/search/{text}",
+     *      operationId="file_search",
+     *      description="Search File",
+     *      tags={"File"},
+     *      @OA\Parameter(
+     *          name="text",
+     *          in="path",
+     *          required=true,
+     *          description="text of subject",
+     *          @OA\Schema(type="string")
+     *      ),
+     *      @OA\Response(response=200,description="Successful operation",
+     *           @OA\JsonContent(ref="#/components/schemas/File"),
+     *      ),
+     *      @OA\Response(response=404,description="Not found",
+     *          @OA\JsonContent(ref="#/components/schemas/Error"),
+     *      ),
+     * )
+     */
+    public function search($text)
+    {
+        $model = File::where(function ($query) use ($text) {
+            $query->where('name_uz', 'like', "%$text%")->
+            orWhere('name_ru', 'like', "%$text%")->
+            orWhere('name_en', 'like', "%$text%")->
+            orWhere('excerpt_uz', 'like', "%$text%")->
+            orWhere('excerpt_ru', 'like', "%$text%")->
+            orWhere('excerpt_en', 'like', "%$text%")->
+            orWhere('keywords', 'like', "%$text%")->
+            orWhere('image', 'like', "%$text%");
+        })->paginate(10);
+        return FileResource::collection($model);
+    }
 }

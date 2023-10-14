@@ -89,6 +89,48 @@
                 }
             }
         },
+        "/api/app/search/{text}": {
+            "get": {
+                "tags": [
+                    "File"
+                ],
+                "description": "Search File",
+                "operationId": "file_search",
+                "parameters": [
+                    {
+                        "name": "text",
+                        "in": "path",
+                        "description": "text of subject",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/File"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/api/app/subject": {
             "get": {
                 "tags": [
