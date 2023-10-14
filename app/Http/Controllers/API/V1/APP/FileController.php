@@ -95,7 +95,7 @@ class FileController extends Controller
      *          name="text",
      *          in="path",
      *          required=true,
-     *          description="text of subject",
+     *          description="text",
      *          @OA\Schema(type="string")
      *      ),
      *      @OA\Response(response=200,description="Successful operation",

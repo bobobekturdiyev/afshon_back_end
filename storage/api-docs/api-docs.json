@@ -100,7 +100,7 @@
                     {
                         "name": "text",
                         "in": "path",
-                        "description": "text of subject",
+                        "description": "text",
                         "required": true,
                         "schema": {
                             "type": "string"
