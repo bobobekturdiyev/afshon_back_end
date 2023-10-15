@@ -88,7 +88,7 @@ class FileController extends Controller
 
     /**
      * @OA\Post(
-     *     path="/api/app/file-search/",
+     *     path="/api/app/file-search",
      *     operationId="file_search",
      *     tags={"File"},
      *     description="Search File",
