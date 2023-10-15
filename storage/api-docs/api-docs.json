@@ -98,7 +98,7 @@
                 }
             }
         },
-        "/api/app/file-search/": {
+        "/api/app/file-search": {
             "post": {
                 "tags": [
                     "File"
@@ -147,24 +147,45 @@
                 }
             }
         },
-        "/api/app/file-read": {
+        "/api/app/register": {
             "post": {
                 "tags": [
-                    "File"
+                    "Auth"
                 ],
-                "description": "View File",
-                "operationId": "file_read",
+                "description": "Registratsiya qoshish",
+                "operationId": "register",
                 "requestBody": {
+                    "description": "lesson save",
                     "required": true,
                     "content": {
-                        "application/json": {
+                        "multipart/form-data": {
                             "schema": {
                                 "required": [
-                                    "file_id"
+                                    "first_name",
+                                    "last_name",
+                                    "email",
+                                    "password"
                                 ],
                                 "properties": {
-                                    "file_id": {
-                                        "type": "integer"
+                                    "first_name": {
+                                        "type": "string",
+                                        "format": "text",
+                                        "example": "Salohiddin"
+                                    },
+                                    "last_name": {
+                                        "type": "string",
+                                        "format": "text",
+                                        "example": "Nuridinov"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "admin@gmail.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "admin123"
                                     }
                                 },
                                 "type": "object"
@@ -178,13 +199,71 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/File"
+                                    "$ref": "#/components/schemas/Subject"
                                 }
                             }
                         }
                     },
-                    "400": {
-                        "description": "Validation error",
+                    "404": {
+                        "description": "Not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/app/login": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "description": "Login Parol yordamida kirish",
+                "operationId": "auth_login",
+                "requestBody": {
+                    "description": "lesson save",
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "admin@gmail.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "admin123"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Subject"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found",
                         "content": {
                             "application/json": {
                                 "schema": {

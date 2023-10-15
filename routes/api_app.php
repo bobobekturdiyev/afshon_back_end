@@ -22,3 +22,6 @@ Route::apiResource('subject', \App\Http\Controllers\API\V1\APP\SubjectController
 Route::get('file-by-subject/{subject_id}', [\App\Http\Controllers\API\V1\APP\FileController::class, 'index']);
 Route::get('file-by-keyword/{keyword}', [\App\Http\Controllers\API\V1\APP\FileController::class, 'show']);
 Route::post('file-search', [\App\Http\Controllers\API\V1\APP\FileController::class, 'search']);
+
+Route::post('register', [\App\Http\Controllers\API\V1\APP\StudentController::class, 'register']);
+Route::post('login', [\App\Http\Controllers\API\V1\APP\StudentController::class, 'login']);
