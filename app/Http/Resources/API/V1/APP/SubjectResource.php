@@ -18,6 +18,8 @@ class SubjectResource extends JsonResource
             'id' => $this->id,
             'title' => $this->{$this->lang('title')},
             'image' => $this->image,
+            'total' => $this->files->count(),
+            'views' => $this->views(),
         ];
     }
 }

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\API\V1\APP\FileResource;
 use App\Models\File;
 use App\Models\FileJoinSubject;
+use App\Models\ViewFile;
 use Illuminate\Http\Request;
 /**
  * @OA\Schema(
@@ -128,5 +129,45 @@ class FileController extends Controller
         })->
         paginate(10);
         return response()->json(FileResource::collection($model));
+    }
+    /**
+     * @OA\Post(
+     *     path="/api/app/file-read",
+     *     operationId="file_read",
+     *     tags={"File"},
+     *     description="View File",
+     *     @OA\RequestBody(required=true,
+     *         @OA\JsonContent(required={"file_id"},
+     *             @OA\Property(property="file_id", type="integer")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Success",
+     *         @OA\JsonContent(ref="#/components/schemas/File")
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Validation error",
+     *         @OA\JsonContent(ref="#/components/schemas/Error")
+     *     )
+     * )
+     */
+    public function read(Request $request)
+    {
+        $id = $request->file_id;
+        $student = auth()->user();
+        if(!$student){
+            return response()->json(['message' => 'Not authorized'], 401);
+        }
+        $model = ViewFile::where('file_id', $id)->where('student_id',$student->id)->first();
+        if(!$model){
+            $model = new ViewFile();
+            $model->student_id = $student->id;
+            $model->file_id = $id;
+            $model->save();
+            return response()->json(['message' => 'Viewed']);
+        }
+        return response()->json(['message' => 'File is not found'], 404);
     }
 }
