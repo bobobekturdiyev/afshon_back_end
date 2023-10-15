@@ -56,9 +56,30 @@ class FileController extends Controller
 
     }
 
-    public function getObjectFile($filename)
+    /**
+     * @OA\Get(
+     *      path="/api/web/file/{filename}",
+     *      operationId="get_file_web",
+     *      description="Get File",
+     *      tags={"File Web"},
+     *      @OA\Parameter(
+     *          name="filename",
+     *          in="path",
+     *          required=true,
+     *          description="text",
+     *          @OA\Schema(type="string")
+     *      ),
+     *      @OA\Response(response=200,description="Successful operation",
+     *           @OA\JsonContent(ref="#/components/schemas/File"),
+     *      ),
+     *      @OA\Response(response=404,description="Not found",
+     *          @OA\JsonContent(ref="#/components/schemas/Error"),
+     *      ),
+     * )
+     */
+    public function getFiles($filename)
     {
-        $filePath = public_path('uploads/object_file/' . $filename); // Assuming the file is stored in the 'public/files' directory
+        $filePath = public_path('uploads/files/' . $filename);
 
         if ($filePath) {
             return response()->file($filePath);
@@ -99,38 +120,48 @@ class FileController extends Controller
     }
 
     /**
-     * @OA\Get(
-     *      path="/api/web/search/{text}",
-     *      operationId="file_search_web",
-     *      description="Search File",
-     *      tags={"File Web"},
-     *      @OA\Parameter(
+     * @OA\Post(
+     *     path="/api/web/search/{text}",
+     *     operationId="file_search_web",
+     *     tags={"File Web"},
+     *     description="Search File",
+     *     @OA\Parameter(
      *          name="text",
      *          in="path",
      *          required=true,
      *          description="text",
      *          @OA\Schema(type="string")
      *      ),
-     *      @OA\Response(response=200,description="Successful operation",
-     *           @OA\JsonContent(ref="#/components/schemas/File"),
-     *      ),
-     *      @OA\Response(response=404,description="Not found",
-     *          @OA\JsonContent(ref="#/components/schemas/Error"),
-     *      ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Success",
+     *         @OA\JsonContent(ref="#/components/schemas/File")
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Validation error",
+     *         @OA\JsonContent(ref="#/components/schemas/Error")
+     *     )
      * )
      */
-    public function search($text)
+    public function search(Request $request)
     {
+        $text = explode(' ', $request->text);
         $model = File::where(function ($query) use ($text) {
-            $query->where('name_uz', 'like', "%$text%")->
-            orWhere('name_ru', 'like', "%$text%")->
-            orWhere('name_en', 'like', "%$text%")->
-            orWhere('excerpt_uz', 'like', "%$text%")->
-            orWhere('excerpt_ru', 'like', "%$text%")->
-            orWhere('excerpt_en', 'like', "%$text%")->
-            orWhere('keywords', 'like', "%$text%")->
-            orWhere('image', 'like', "%$text%");
-        })->paginate(10);
-        return FileResource::collection($model);
+            foreach ($text as $term) {
+                $query->orWhere(function ($subQuery) use ($term) {
+                    $subQuery->where('name_uz', 'LIKE', "%{$term}%")->
+                    orWhere('name_ru', 'like', "%$term%")->
+                    orWhere('name_en', 'like', "%$term%")->
+                    orWhere('excerpt_uz', 'like', "%$term%")->
+                    orWhere('excerpt_ru', 'like', "%$term%")->
+                    orWhere('excerpt_en', 'like', "%$term%")->
+                    orWhere('keywords', 'like', "%$term%")->
+                    orWhere('image', 'like', "%$term%");
+                });
+            }
+        })->
+        paginate(10);
+        return response()->json(FileResource::collection($model));
     }
 }

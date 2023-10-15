@@ -98,7 +98,7 @@
                 }
             }
         },
-        "/api/app/file-search/": {
+        "/api/app/file-search/{text}": {
             "post": {
                 "tags": [
                     "File"
@@ -118,7 +118,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Successful operation",
+                        "description": "Success",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -127,8 +127,8 @@
                             }
                         }
                     },
-                    "404": {
-                        "description": "Not found",
+                    "400": {
+                        "description": "Validation error",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -255,6 +255,48 @@
                 }
             }
         },
+        "/api/web/file/{filename}": {
+            "get": {
+                "tags": [
+                    "File Web"
+                ],
+                "description": "Get File",
+                "operationId": "get_file_web",
+                "parameters": [
+                    {
+                        "name": "filename",
+                        "in": "path",
+                        "description": "text",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/File"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/api/web/file-by-keyword/{keyword}": {
             "get": {
                 "tags": [
@@ -298,7 +340,7 @@
             }
         },
         "/api/web/search/{text}": {
-            "get": {
+            "post": {
                 "tags": [
                     "File Web"
                 ],
@@ -317,7 +359,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Successful operation",
+                        "description": "Success",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -326,8 +368,8 @@
                             }
                         }
                     },
-                    "404": {
-                        "description": "Not found",
+                    "400": {
+                        "description": "Validation error",
                         "content": {
                             "application/json": {
                                 "schema": {

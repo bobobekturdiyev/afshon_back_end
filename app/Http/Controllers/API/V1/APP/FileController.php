@@ -88,23 +88,27 @@ class FileController extends Controller
 
     /**
      * @OA\Post(
-     *      path="/api/app/file-search/",
-     *      operationId="file_search",
-     *      description="Search File",
-     *      tags={"File"},
-     *      @OA\Parameter(
+     *     path="/api/app/file-search/{text}",
+     *     operationId="file_search",
+     *     tags={"File"},
+     *     description="Search File",
+     *     @OA\Parameter(
      *          name="text",
      *          in="path",
      *          required=true,
      *          description="text",
      *          @OA\Schema(type="string")
      *      ),
-     *      @OA\Response(response=200,description="Successful operation",
-     *           @OA\JsonContent(ref="#/components/schemas/File"),
-     *      ),
-     *      @OA\Response(response=404,description="Not found",
-     *          @OA\JsonContent(ref="#/components/schemas/Error"),
-     *      ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Success",
+     *         @OA\JsonContent(ref="#/components/schemas/File")
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Validation error",
+     *         @OA\JsonContent(ref="#/components/schemas/Error")
+     *     )
      * )
      */
     public function search(Request $request)
