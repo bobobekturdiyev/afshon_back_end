@@ -88,17 +88,15 @@ class FileController extends Controller
 
     /**
      * @OA\Post(
-     *     path="/api/app/file-search/{text}",
+     *     path="/api/app/file-search/",
      *     operationId="file_search",
      *     tags={"File"},
      *     description="Search File",
-     *     @OA\Parameter(
-     *          name="text",
-     *          in="path",
-     *          required=true,
-     *          description="text",
-     *          @OA\Schema(type="string")
-     *      ),
+     *     @OA\RequestBody(required=true,
+     *         @OA\JsonContent(required={"text"},
+     *             @OA\Property(property="text", type="string",)
+     *         )
+     *     ),
      *     @OA\Response(
      *         response=200,
      *         description="Success",
