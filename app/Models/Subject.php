@@ -39,7 +39,7 @@ class Subject extends Model
     public function views()
     {
         try {
-        $student = auth()->user();
+        $student = auth('student')->user();
         if(!$student){
             return 0;
         }

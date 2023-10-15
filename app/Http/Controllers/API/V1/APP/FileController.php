@@ -156,7 +156,7 @@ class FileController extends Controller
     public function read(Request $request)
     {
         $id = $request->file_id;
-        $student = auth()->user();
+        $student = auth('student')->user();
         if(!$student){
             return response()->json(['message' => 'Not authorized'], 401);
         }
