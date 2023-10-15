@@ -56,6 +56,19 @@ class FileController extends Controller
 
     }
 
+    public function getObjectFile($filename)
+    {
+        $filePath = public_path('uploads/object_file/' . $filename); // Assuming the file is stored in the 'public/files' directory
+
+        if ($filePath) {
+            return response()->file($filePath);
+        }
+        else
+        {
+            return response()->json(['errors' => ['Not found']], 404);
+        }
+    }
+
     /**
      * @OA\Get(
      *      path="/api/web/file-by-keyword/{keyword}",

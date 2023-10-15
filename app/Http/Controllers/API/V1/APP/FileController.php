@@ -107,19 +107,24 @@ class FileController extends Controller
      *      ),
      * )
      */
-    public function search(Request  $request)
+    public function search(Request $request)
     {
-        $text = $request->text;
+        $text = explode(' ', $request->text);
         $model = File::where(function ($query) use ($text) {
-            $query->where('name_uz', 'like', "%$text%")->
-            orWhere('name_ru', 'like', "%$text%")->
-            orWhere('name_en', 'like', "%$text%")->
-            orWhere('excerpt_uz', 'like', "%$text%")->
-            orWhere('excerpt_ru', 'like', "%$text%")->
-            orWhere('excerpt_en', 'like', "%$text%")->
-            orWhere('keywords', 'like', "%$text%")->
-            orWhere('image', 'like', "%$text%");
-        })->paginate(10);
+            foreach ($text as $term) {
+                $query->orWhere(function ($subQuery) use ($term) {
+                    $subQuery->where('name_uz', 'LIKE', "%{$term}%")->
+                         orWhere('name_ru', 'like', "%$term%")->
+                         orWhere('name_en', 'like', "%$term%")->
+                         orWhere('excerpt_uz', 'like', "%$term%")->
+                         orWhere('excerpt_ru', 'like', "%$term%")->
+                         orWhere('excerpt_en', 'like', "%$term%")->
+                         orWhere('keywords', 'like', "%$term%")->
+                         orWhere('image', 'like', "%$term%");
+                });
+            }
+        })->
+        paginate(10);
         return response()->json(FileResource::collection($model));
     }
 }
