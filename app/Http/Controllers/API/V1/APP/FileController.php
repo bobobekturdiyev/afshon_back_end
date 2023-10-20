@@ -116,14 +116,10 @@ class FileController extends Controller
         $model = File::where(function ($query) use ($text) {
             foreach ($text as $term) {
                 $query->orWhere(function ($subQuery) use ($term) {
-                    $subQuery->where('name_uz', 'LIKE', "%{$term}%")->
-                         orWhere('name_ru', 'like', "%$term%")->
-                         orWhere('name_en', 'like', "%$term%")->
-                         orWhere('excerpt_uz', 'like', "%$term%")->
-                         orWhere('excerpt_ru', 'like', "%$term%")->
-                         orWhere('excerpt_en', 'like', "%$term%")->
-                         orWhere('keywords', 'like', "%$term%")->
-                         orWhere('image', 'like', "%$term%");
+                    $subQuery->where('keywords', 'LIKE', "$term %")->
+                         orWhere('keywords', 'like', "% $term")->
+                         orWhere('keywords', 'like', "% $term %")->
+                         orWhere('keywords', 'like', "$term");
                 });
             }
         })->
